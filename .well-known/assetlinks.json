@@ -1,0 +1,9 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.example.dmoney.db",
+    "sha256_cert_fingerprints":
+    ["36:72:D6:9A:EB:12:27:D5:A1:D8:89:54:F5:3D:EE:C2:44:AA:4F:90:40:BF:F7:9C:50:65:06:D3:CD:88:1A:1B"]
+  }
+}]
