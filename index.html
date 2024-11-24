@@ -7,8 +7,34 @@
 </head>
 <body>
     <h1>Hello</h1>
-    <a  href="intent://dmoneyreza.github.io#Intent;scheme=https;package=com.example.dmoney.db;S.browser_fallback_url=https://play.google.com/store/apps/details?id=com.dmoneybd.dcustomer.dm&pcampaignid=web_share;end">
+    <!-- <a  href="intent://dmoneyreza.github.io#Intent;scheme=https;package=com.example.dmoney.db;S.browser_fallback_url=https://play.google.com/store/apps/details?id=com.dmoneybd.dcustomer.dm&pcampaignid=web_share;end">
         Click here to open the app
-    </a>
+    </a> -->
+
+
+    <a id="appLink" href="#">Click here to open the app</a>
+
+    <script>
+        document.getElementById('appLink').addEventListener('click', function (event) {
+            event.preventDefault();
+
+            // Try to open the app
+            const appIntentUrl = "intent://dmoneyreza.github.io#Intent;scheme=https;package=com.example.dmoney.db;S.browser_fallback_url=https://play.google.com/store/apps/details?id=com.dmoneybd.dcustomer.dm&pcampaignid=web_share;end";
+            const fallbackUrl = "https://play.google.com/store/apps/details?id=com.dmoneybd.dcustomer.dm";
+
+            // Create an invisible iframe to trigger the intent URL
+            const iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            iframe.src = appIntentUrl;
+
+            document.body.appendChild(iframe);
+
+            // Redirect to the fallback URL if the app does not open within a certain time
+            setTimeout(() => {
+                document.body.removeChild(iframe);
+                window.location.href = fallbackUrl;
+            }, 1000); // Adjust timeout if needed
+        });
+    </script>
 </body>
 </html>
