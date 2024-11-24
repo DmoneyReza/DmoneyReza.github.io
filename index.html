@@ -15,9 +15,7 @@
     <a id="appLink" href="#">Click here to open the app</a>
 
     <script>
-        document.getElementById('appLink').addEventListener('click', function (event) {
-            event.preventDefault();
-
+        window.onload = function () {
             // Determine if the device is iOS or Android
             const userAgent = navigator.userAgent || navigator.vendor || window.opera;
             let fallbackUrl;
@@ -44,7 +42,7 @@
                 document.body.removeChild(iframe);
                 window.location.href = fallbackUrl;
             }, 1000); // Adjust timeout if needed
-        });
+        };
     </script>
 </body>
 </html>
