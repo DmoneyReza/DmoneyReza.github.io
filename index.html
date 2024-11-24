@@ -10,7 +10,7 @@
     <!-- <a  href="intent://dmoneyreza.github.io#Intent;scheme=https;package=com.example.dmoney.db;S.browser_fallback_url=https://play.google.com/store/apps/details?id=com.dmoneybd.dcustomer.dm&pcampaignid=web_share;end">
         Click here to open the app
     </a> -->
-
+    <!-- https://apps.apple.com/us/app/dmoney/id1441277786 -->
 
     <a id="appLink" href="#">Click here to open the app</a>
 
@@ -18,18 +18,28 @@
         document.getElementById('appLink').addEventListener('click', function (event) {
             event.preventDefault();
 
-            // Try to open the app
-            const appIntentUrl = "intent://dmoneyreza.github.io#Intent;scheme=https;package=com.example.dmoney.db;S.browser_fallback_url=https://play.google.com/store/apps/details?id=com.dmoneybd.dcustomer.dm&pcampaignid=web_share;end";
-            const fallbackUrl = "https://play.google.com/store/apps/details?id=com.dmoneybd.dcustomer.dm";
+            // Determine if the device is iOS or Android
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            let fallbackUrl;
 
-            // Create an invisible iframe to trigger the intent URL
+            if (/android/i.test(userAgent)) {
+                fallbackUrl = "https://play.google.com/store/apps/details?id=com.dmoneybd.dcustomer.dm";
+            } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                fallbackUrl = "https://apps.apple.com/us/app/dmoney/id1441277786";
+            } else {
+                fallbackUrl = "https://dmoneyreza.github.io"; // Default fallback for other platforms
+            }
+
+            // Try to open the app using an intent
+            const appIntentUrl = "intent://dmoneyreza.github.io#Intent;scheme=https;package=com.example.dmoney.db;S.browser_fallback_url=" + encodeURIComponent(fallbackUrl) + "&pcampaignid=web_share;end";
+
             const iframe = document.createElement('iframe');
             iframe.style.display = 'none';
             iframe.src = appIntentUrl;
 
             document.body.appendChild(iframe);
 
-            // Redirect to the fallback URL if the app does not open within a certain time
+            // Redirect to the fallback URL if the app does not open
             setTimeout(() => {
                 document.body.removeChild(iframe);
                 window.location.href = fallbackUrl;
